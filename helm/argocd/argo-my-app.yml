@@ -1,0 +1,54 @@
+# argocd/my-app-application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+  labels:
+    app: my-app
+    env: dev
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/yagen1111/helm-web-db.git  
+    targetRevision: HEAD  
+    path: helm
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: web.image.tag
+          value: "latest"
+        - name: db.image.tag
+          value: "latest"
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default  
+  
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  revisionHistoryLimit: 3
+  
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
