@@ -13,21 +13,23 @@ spec:
   {{- if .Values.ingress.className }}
   ingressClassName: {{ .Values.ingress.className }}
   {{- end }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.hosts.host | quote }}
+    secretName: {{ include "my-app.fullname" . }}-tls
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .Values.ingress.hosts.host | quote }}
       http:
         paths:
-          {{- range .paths }}
+          {{- range .Values.ingress.hosts.paths }}
           - path: {{ .path }}
             {{- if .pathType }}
             pathType: {{ .pathType }}
             {{- end }}
             backend:
               service:
-                name: {{ include "my-app.fullname" $ }}-websvc
+                name: {{ include "my-app.fullname" . }}-websvc
                 port:
                   number: 80
           {{- end }}
-    {{- end }}
 {{- end }}
