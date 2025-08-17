@@ -24,7 +24,8 @@ db:
 
 
 
-# Ingress configuration
+
+ # Ingress configuration -
 ingress:
   enabled: true
   className: "alb"  
@@ -41,7 +42,7 @@ ingress:
         - path: /view_data
           pathType: Prefix
   tls: []
-
+  
 externalSecrets:
   enabled: true
   region: us-east-1
