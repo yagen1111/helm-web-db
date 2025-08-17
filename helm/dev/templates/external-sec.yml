@@ -7,6 +7,7 @@ spec:
   secretStoreRef:
     name: aws-secrets-manager
     kind: SecretStore
+    namespace: external-secrets
   target:
     name: my-app-secret
     type: Opaque
