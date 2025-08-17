@@ -1,3 +1,4 @@
+name: my-app
 # web configuration
 web:
   replicaCount: 2
