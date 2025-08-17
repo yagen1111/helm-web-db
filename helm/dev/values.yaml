@@ -1,4 +1,6 @@
 name: my-app
+fullnameOverride: ""
+
 # web configuration
 web:
   replicaCount: 2
