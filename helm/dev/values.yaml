@@ -24,23 +24,24 @@ db:
 
 
 
-# Ingress configuration -
+# Ingress configuration
 ingress:
   enabled: true
   className: "alb"  
   annotations:
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      alb.ingress.kubernetes.io/target-type: ip
-      alb.ingress.kubernetes.io/ssl-cert: arn:aws:acm:us-east-1:559050211440:certificate/3ed66a3d-b1de-478e-8d29-da9562384a71
-      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/ssl-cert: arn:aws:acm:us-east-1:559050211440:certificate/3ed66a3d-b1de-478e-8d29-da9562384a71
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
   hosts:
-    - host: yagen.store
-      paths:
-        - path: /
-          pathType: Prefix
-        - path: /view_data
-          pathType: Prefix
-  tls: []
+    host: yagen.store
+    paths:
+      - path: /
+        pathType: Prefix
+      - path: /view_data
+        pathType: Prefix
 
 
 externalSecrets:
