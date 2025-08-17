@@ -2,12 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-ingress
+  name: {{ include "my-app.fullname" . }}-ingress
   labels:
-    app.kubernetes.io/name: {{ .Chart.Name }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    {{- include "my-app.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -16,23 +13,21 @@ spec:
   {{- if .Values.ingress.className }}
   ingressClassName: {{ .Values.ingress.className }}
   {{- end }}
-  tls:
-  - hosts:
-    - {{ .Values.ingress.hosts.host | quote }}
-    secretName: {{ .Release.Name }}-tls
   rules:
-    - host: {{ .Values.ingress.hosts.host | quote }}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .Values.ingress.hosts.paths }}
+          {{- range .paths }}
           - path: {{ .path }}
             {{- if .pathType }}
             pathType: {{ .pathType }}
             {{- end }}
             backend:
               service:
-                name: {{ .Release.Name }}-websvc
+                name: {{ include "my-app.fullname" . }}-websvc
                 port:
                   number: 80
           {{- end }}
+    {{- end }}
 {{- end }}
