@@ -26,8 +26,8 @@ db:
 
 # Ingress configuration -
 ingress:
-  enabled: false
-  className: "nginx"  
+  enabled: true
+  className: "alb"  
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
