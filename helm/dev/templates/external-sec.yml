@@ -6,8 +6,7 @@ spec:
   refreshInterval: 1h
   secretStoreRef:
     name: aws-secrets-manager
-    kind: SecretStore
-    namespace: external-secrets
+    kind: ClusterSecretStore 
   target:
     name: my-app-secret
     type: Opaque
