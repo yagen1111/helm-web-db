@@ -1,0 +1,70 @@
+# web configuration
+web:
+  replicaCount: 2
+  image:
+    repository: yagen1111/web_and_db-web
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+# db (Flask) configuration
+db:
+  replicaCount: 1
+  image:
+    repository: yagen1111/web_and_db-db
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+
+
+
+ # Ingress configuration -
+ingress:
+  enabled: true
+  className: "alb"  
+  annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/ssl-cert: arn:aws:acm:us-east-1:559050211440:certificate/3ed66a3d-b1de-478e-8d29-da9562384a71
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+  hosts:
+    - host: yagen.store
+      paths:
+        - path: /
+          pathType: Prefix
+        - path: /view_data
+          pathType: Prefix
+  tls: []
+  
+externalSecrets:
+  enabled: true
+  region: us-east-1
+  secretPrefix: "my-app/" 
+  secretName: "my-app-secret"
+
+# Service Account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Pod Security Context
+podSecurityContext: {}
+
+# Security Context
+securityContext: {}
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
