@@ -27,7 +27,7 @@ spec:
               service:
                 name: {{ include "my-app.fullname" $ }}-websvc
                 port:
-                  number: 80
+                  number: 5000
           {{- end }}
     {{- end }}
 {{- end }} 
