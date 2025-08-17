@@ -29,5 +29,5 @@ spec:
         property: MYSQL_PASSWORD
     - secretKey: SECRET_KEY
       remoteRef:
-        key: my-app-secrets
+        key: my-app-secret
         property: SECRET_KEY
