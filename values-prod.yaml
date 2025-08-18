@@ -48,7 +48,7 @@ ingress:
       alb.ingress.kubernetes.io/ssl-cert: arn:aws:acm:us-east-1:559050211440:certificate/3ed66a3d-b1de-478e-8d29-da9562384a71
       alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
   hosts:
-    - host: prod.yagen.store
+    - host: yagen.store
       paths:
         - path: /
           pathType: Prefix
