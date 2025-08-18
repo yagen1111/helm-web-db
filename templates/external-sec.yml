@@ -9,7 +9,7 @@ spec:
     name: aws-secrets-manager
     kind: ClusterSecretStore 
   target:
-    name: {{ .Release.Name }}-secret
+    name: my-app-secret
     type: {{ .Values.externalSecrets.type }}
   data:
     - secretKey: MYSQL_ROOT_PASSWORD

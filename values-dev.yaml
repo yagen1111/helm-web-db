@@ -46,7 +46,7 @@ ingress:
   tls: []
   
 externalSecrets:
-  namespace: externalSecrets
+  namespace: external-secrets
   refreshInterval: 1h
   type: Opaque
   region: us-east-1

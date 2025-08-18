@@ -1,5 +1,6 @@
 
 web:
+  namespace: staging
   replicaCount: 2
   image:
     repository: yagen1111/web_and_db-web
@@ -10,13 +11,9 @@ web:
       cpu: 250m
       memory: 256Mi
 
-externalSecrets:
-  namespace: externalSecrets
-  refreshInterval: 1h
-  type: Opaque
-  region: us-east-1
 
 db:
+  namespace: staging
   replicaCount: 1
   image:
     repository: yagen1111/web_and_db-db
@@ -26,6 +23,12 @@ db:
     requests:
       cpu: 500m
       memory: 512Mi
+
+externalSecrets:
+  namespace: external-secrets
+  refreshInterval: 1h
+  type: Opaque
+  region: us-east-1
 
 
 pvc:
@@ -53,11 +56,7 @@ ingress:
           pathType: Prefix
   tls: []
   
-externalSecrets:
-  enabled: true
-  region: us-east-1
-  secretPrefix: "my-app/" 
-  secretName: "my-app-secret"
+
 
 
 serviceAccount:
