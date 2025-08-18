@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-web
+  namespace: {{ .Values.web.namespace }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
     component: web
@@ -67,6 +68,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "my-app.fullname" . }}-websvc
+  namespace: {{ .Values.web.namespace }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
 spec:

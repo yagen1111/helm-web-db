@@ -1,4 +1,4 @@
-# web configuration
+
 web:
   replicaCount: 2
   image:
@@ -10,7 +10,12 @@ web:
       cpu: 250m
       memory: 256Mi
 
-# db (Flask) configuration
+externalSecrets:
+  namespace: externalSecrets
+  refreshInterval: 1h
+  type: Opaque
+  region: us-east-1
+
 db:
   replicaCount: 1
   image:
@@ -23,9 +28,14 @@ db:
       memory: 512Mi
 
 
+pvc:
+  namespace: staging
+  storageClass: gp2
+  storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
 
 
- # Ingress configuration -
 ingress:
   enabled: true
   className: "alb"  
@@ -49,22 +59,12 @@ externalSecrets:
   secretPrefix: "my-app/" 
   secretName: "my-app-secret"
 
-# Service Account
+
 serviceAccount:
   create: true
   annotations: {}
   name: ""
 
-# Pod Security Context
 podSecurityContext: {}
 
-# Security Context
 securityContext: {}
-
-# Node selector
-nodeSelector: {}
-
-# Tolerations
-tolerations: []
-
-# Affinity

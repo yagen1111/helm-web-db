@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-db
+  namespace: {{ .Values.db.namespace }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
     component: db
@@ -61,6 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "my-app.fullname" . }}-dbsvc
+  namespace: {{ .Values.db.namespace }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
 spec:
