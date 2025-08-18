@@ -55,7 +55,7 @@ spec:
       volumes:
         - name: db-pvc
           persistentVolumeClaim:
-            claimName: my-app-pvc
+            claimName: {{ .Release.Name }}-pvc
 
 ---
 apiVersion: v1
