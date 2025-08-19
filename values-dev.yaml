@@ -4,7 +4,7 @@ web:
   replicaCount: 2
   image:
     repository: yagen1111/web_and_db-web
-    tag: "d20b1ef67ce9e34ba822db9f35d16c0e42e4bf3c"
+    tag: "9c90c65d5952103dc439dbaddff3ad49c11582d8"
     pullPolicy: IfNotPresent
   resources:
     requests:
@@ -17,7 +17,7 @@ db:
   replicaCount: 1
   image:
     repository: yagen1111/web_and_db-db
-    tag: "d20b1ef67ce9e34ba822db9f35d16c0e42e4bf3c"
+    tag: "9c90c65d5952103dc439dbaddff3ad49c11582d8"
     pullPolicy: IfNotPresent
   resources:
     requests:
